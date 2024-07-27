@@ -2,10 +2,14 @@ import { Text, View,TouchableOpacity,TextInput,Image } from "react-native";
 import { Feather } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
-import { useState } from "react";
+import { useState,useCallback } from "react";
+import ManagerAPI from "@/src/api/manager";
 
 
 export default function Index() {
+
+  const manager = new ManagerAPI();
+
   const [value, setValue] = useState('');
 
   const fetchCopiedText = async () => {
@@ -13,10 +17,13 @@ export default function Index() {
     setValue(text);
   };
 
+  const getURL = useCallback(async ()=>{
+    let result = await manager.get(value);
+    let url =  manager.findURL(result)
+  },[])
 
   return (
     <View className=" bg-sky-900 flex h-full  justify-center items-center ">
-     
       
       <View className="relative">
         <Image source={require("../../assets/images/logo/tiktok.webp")} className="w-40 h-40 rounded-full mt-10"/>
@@ -38,7 +45,7 @@ export default function Index() {
             </TouchableOpacity>
         </View>
 
-        <TouchableOpacity className="w-96 h-14">
+        <TouchableOpacity className="w-96 h-14" onPress={getURL}>
             <View className=" bg-sky-500 w-96 h-14 rounded-lg justify-center items-center">
               <Text className="text-slate-50 text-lg">Buscar</Text>
             </View>
