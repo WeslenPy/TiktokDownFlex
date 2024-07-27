@@ -1,5 +1,4 @@
 
-import {JSDOM} from "jsdom";
 
 
 class ManagerAPI{
@@ -25,9 +24,6 @@ class ManagerAPI{
 
 
     findURL(html:string){
-        var dom = new JSDOM(html);
-        let src = dom.window.document.querySelector(`script#${this.constId}`)
-        console.log(src)
         // let data_result = src["__DEFAULT_SCOPE__"][this.dataKey]
         // let url = data_result["itemInfo"]["itemStruct"]["video"]["playAddr"]
 
