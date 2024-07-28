@@ -20,6 +20,15 @@ export default function Index() {
   const getURL = useCallback(async ()=>{
     let result = await manager.get(value);
     let url =  manager.findURL(result)
+    console.log(url)
+
+  },[])  
+  
+  const downloadVideo = useCallback(async ()=>{
+    let result = await manager.get(value);
+    let url =  manager.findURL(result)
+    console.log(url)
+
   },[])
 
   return (
@@ -46,8 +55,16 @@ export default function Index() {
         </View>
 
         <TouchableOpacity className="w-96 h-14" onPress={getURL}>
-            <View className=" bg-sky-500 w-96 h-14 rounded-lg justify-center items-center">
-              <Text className="text-slate-50 text-lg">Buscar</Text>
+            <View className=" bg-sky-500 w-96 h-14 rounded-lg justify-center items-center flex-row mb-5">
+              <Feather name="search" size={24} color="white"></Feather>
+              <Text className="text-slate-50 text-lg mx-2">Buscar</Text>
+            </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity className="w-96 h-14" onPress={downloadVideo}>
+            <View className=" bg-green-500 w-96 h-14 rounded-lg justify-center items-center flex-row">
+              <Text className="text-slate-50 text-lg mx-2">Download</Text>
+              <Octicons name="download" size={24} color="white" />
             </View>
         </TouchableOpacity>
 

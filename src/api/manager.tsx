@@ -8,6 +8,8 @@ class ManagerAPI{
     constId = "__UNIVERSAL_DATA_FOR_REHYDRATION__"
     dataKey = "webapp.video-detail"
 
+    regexURL = /"playAddr":\s*"([^"]*)"/;
+
     async get(url:string){
 
         let result = await fetch(url,{
@@ -22,12 +24,18 @@ class ManagerAPI{
 
     }
 
+    formatURL(url:string){
+        return url.replace(/\\u([\dA-F]{4})/gi, (match, grp) => String.fromCharCode(parseInt(grp, 16)));
+    }
+
 
     findURL(html:string){
-        // let data_result = src["__DEFAULT_SCOPE__"][this.dataKey]
-        // let url = data_result["itemInfo"]["itemStruct"]["video"]["playAddr"]
+        let result = html.match(this.regexURL)
 
-        // return url
+        if (result){return this.formatURL(result[0].replace(`"playAddr":`,""))}
+
+
+        return ""
     }
 
 }
